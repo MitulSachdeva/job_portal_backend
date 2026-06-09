@@ -153,19 +153,6 @@ This project is for educational and portfolio purposes.
 
 [https://job-portal-backend-vpvz.onrender.com/docs](https://job-portal-backend-vpvz.onrender.com/docs#/)
 
-### Features
-
-* User Registration & Login
-* JWT Authentication
-* Role-Based Access Control (Seeker / Hirer)
-* Create, Update, Delete Jobs
-* Browse Jobs
-* Apply to Jobs
-* View Job Applications
-* PostgreSQL Database
-* Alembic Migrations
-* FastAPI + SQLAlchemy
-
 ### Test Accounts
 
 You can create your own accounts using the `/register` endpoint and test the API directly through Swagger UI.
