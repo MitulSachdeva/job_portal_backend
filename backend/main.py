@@ -14,6 +14,7 @@ import auth
 
 from database import SessionLocal, engine
 
+models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
