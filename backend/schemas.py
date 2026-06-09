@@ -21,19 +21,18 @@ class job(jobBase):
         orm_mode = True
 
 class applicationBase(BaseModel):
-    pass
+    job_id: int
 
 class applicationCreate(applicationBase):
     pass
 
 class application(applicationBase):
     id: int
-    job_id: int
     applicant_id: int
     status: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class userBase(BaseModel):
     email: str

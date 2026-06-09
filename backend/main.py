@@ -87,6 +87,49 @@ def create_job(
         owner_id=current_user.id
     )
 
+@app.post("/jobs/{job_id}/apply")
+def apply_for_job(
+    job_id: int,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user)
+):
+    # Only seekers can apply
+    if current_user.role != "seeker":
+        raise HTTPException(
+            status_code=403,
+            detail="Only seekers can apply for jobs"
+        )
+
+    # Check if job exists
+    job = db.query(models.Job).filter(
+        models.Job.id == job_id
+    ).first()
+
+    if not job:
+        raise HTTPException(
+            status_code=404,
+            detail="Job not found"
+        )
+
+    # Check if already applied
+    existing_application = crud.get_applications(
+        db,
+        job_id,
+        current_user.id
+    )
+
+    if existing_application:
+        raise HTTPException(
+            status_code=400,
+            detail="Already applied to this job"
+        )
+
+    return crud.create_application(
+        db,
+        job_id,
+        current_user.id
+    )
+
 @app.get("/jobs/", response_model=List[schemas.job])
 def get_jobs(
     skip: int = 0,
